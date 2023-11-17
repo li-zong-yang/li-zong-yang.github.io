@@ -1,10 +1,13 @@
 # 第七人格的编程百宝书
 
-> 分享技术，热爱生活
+> 公众号：奔跑的码畜
 
 - 面对对象面对君，不负代码不负卿
 - 勿在浮沙筑高台
 - 不卷不舒服星人
 
 
+
+[GitHub](https://github.com/docsifyjs/docsify/)
+[Gitee](https://github.com/docsifyjs/docsify/)
 [开始](index/index)
