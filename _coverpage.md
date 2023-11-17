@@ -8,6 +8,6 @@
 
 
 
-[GitHub](https://github.com/docsifyjs/docsify/)
-[Gitee](https://github.com/docsifyjs/docsify/)
+[GitHub](https://github.com/li-zong-yang/)
+[Gitee](https://gitee.com/diqirenge/)
 [开始](index/index)
