@@ -6,7 +6,7 @@ MySQL 作为标准的 C/S 架构，分为客户端和服务端。我们写代码
 
 ## 2.2 程序是如何跟 MySQL 打交道的图解
 
-![01_程序是如何跟mysql打交道的.png](/media/01_程序是如何跟mysql打交道的.png)
+![01_程序是如何跟mysql打交道的.png](media/01_程序是如何跟mysql打交道的.png)
 
 ## 2.3 服务端流程分析
 
@@ -28,7 +28,7 @@ MySQL 作为标准的 C/S 架构，分为客户端和服务端。我们写代码
 为了方便大家记忆这个过程，小七画了下面一张图
 
 
-![02_mysql架构（2）.png](/media/02_mysql架构.png)
+![02_mysql架构（2）.png](media/02_mysql架构.png)
 
 以上内容，作为一个 CRUD 工程师，不需要掌握得那么深，了解即可。下文将会讲述重点知识**InnoDB 存储引擎** 。
 
@@ -57,7 +57,7 @@ MySQL 作为标准的 C/S 架构，分为客户端和服务端。我们写代码
 ## 3.2 图解
 
 
-![03_InnoDB存储引擎的架构设计.png](/media/03_InnoDB存储引擎的架构设计.png)
+![03_InnoDB存储引擎的架构设计.png](media/03_InnoDB存储引擎的架构设计.png)
 
 # 4 MySQL 物理数据模型
 
@@ -65,7 +65,7 @@ MySQL 作为标准的 C/S 架构，分为客户端和服务端。我们写代码
 
 我们每一行数据在磁盘上到底是怎么存储的呢？我们以常见的varchar为例，他的存储格式大概如下图所示：
 
-![12_VARCHAR这种变长字段，在磁盘上到底是如何存储的.png](/media/12_VARCHAR这种变长字段，在磁盘上到底是如何存储的.png)
+![12_VARCHAR这种变长字段，在磁盘上到底是如何存储的.png](media/12_VARCHAR这种变长字段，在磁盘上到底是如何存储的.png)
 
 **注意：变长字段长度实际上是倒序存储的。**
 
@@ -74,21 +74,21 @@ MySQL 作为标准的 C/S 架构，分为客户端和服务端。我们写代码
 下图展示了，null列表与数据头的详细信息，了解即可。
 
 
-![13_null值列表与数据头.png](/media/13_null值列表与数据头.png)
+![13_null值列表与数据头.png](media/13_null值列表与数据头.png)
 
 ## 4.3 行溢出
 
 什么叫行溢出？就是说一行数据太多了，多的一个数据页都放不下了，需要放在其他数据页里面（这些数据页是由链表串联起来的），这个就叫行溢出。（数据页的详细介绍，请参考11.1）
 
 
-![14_行溢出.png](/media/14_行溢出.png)
+![14_行溢出.png](media/14_行溢出.png)
 
 # 5 BufferPool
 
 首先我们通过下图，简单地了解一下 BufferPool 的内存数据结构
 
 
-![04_Buffer Pool内存数据结构.png](/media/04_Buffer Pool内存数据结构.png)
+![04_Buffer Pool内存数据结构.png](media/04_Buffer Pool内存数据结构.png)
 
 我们知道 MySQL 的数据最后都是存放在磁盘文件中的，MySQL 将这一行行数据，放入到了一个一个的叫**数据页**的数据结构中，然后**数据页**会被 MySQL 加载到 **BufferPool** 中。
 
@@ -102,7 +102,7 @@ MySQL 作为标准的 C/S 架构，分为客户端和服务端。我们写代码
 
 然后当我们进行增删改操作的时候，BufferPool 才会将数据对应的数据页读出来，放在缓存页中。这个时候，就出现一个问题了，我们怎么知道哪些缓存页是空的呢？MySQL 为我们引入了另外一个概念，**free 链表**。他是一个双向链表数据结构，每一个节点都存放了空置的描述数据的地址，并且他还有一个基础节点，存放的是控制缓存页的个数。
 
-![image.png](/media/free链表.jpg)
+![image.png](media/free链表.jpg)
 
 
 ### 5.1.2 缓存页 hash 表
@@ -113,7 +113,7 @@ MySQL 作为标准的 C/S 架构，分为客户端和服务端。我们写代码
 
 ### 5.1.3 图解
 
-![05_free链表和hash表.png](/media/05_free链表和hash表.png)
+![05_free链表和hash表.png](media/05_free链表和hash表.png)
 
 ## 5.2 flush 链表
 
@@ -124,7 +124,7 @@ MySQL 作为标准的 C/S 架构，分为客户端和服务端。我们写代码
 ### 5.2.2 图解
 
 
-![06_flush链表和脏数据.png](/media/06_flush链表和脏数据.png)
+![06_flush链表和脏数据.png](media/06_flush链表和脏数据.png)
 
 ## 5.3 LRU 链表
 
@@ -135,7 +135,7 @@ MySQL 作为标准的 C/S 架构，分为客户端和服务端。我们写代码
 ### 5.3.2 图解
 
 
-![07_LRU算法淘汰部分缓存.png](/media/07_LRU算法淘汰部分缓存.png)
+![07_LRU算法淘汰部分缓存.png](media/07_LRU算法淘汰部分缓存.png)
 
 ### 5.3.3 LRU 链表存在的问题
 
@@ -163,7 +163,7 @@ MySQL 作为标准的 C/S 架构，分为客户端和服务端。我们写代码
 #### 5.3.3.4 图解
 
 
-![08_LRU链表在Buffer Pool的问题（预读机制）.png](/media/08_LRU链表在Buffer Pool的问题（预读机制）.png)
+![08_LRU链表在Buffer Pool的问题（预读机制）.png](media/08_LRU链表在Buffer Pool的问题（预读机制）.png)
 
 ### 5.3.4 MySQL 对 LRU 算法的优化
 
@@ -182,18 +182,18 @@ MySQL 作为标准的 C/S 架构，分为客户端和服务端。我们写代码
     设置冷数据区域所占大小，默认 37%
 
 
-![09_通过热冷数据分离，优化LRU算法.png](/media/09_通过热冷数据分离，优化LRU算法.png)
+![09_通过热冷数据分离，优化LRU算法.png](media/09_通过热冷数据分离，优化LRU算法.png)
 
 #### 5.3.4.1 通过定时任务，优化 LRU 算法
 
 为了提升效率，MySQL 开启一个后台线程，定时把冷数据尾部的一些数据输入磁盘。
 
-![10_定时任务，优化LRU算法.png](/media/10_定时任务，优化LRU算法.png)
+![10_定时任务，优化LRU算法.png](media/10_定时任务，优化LRU算法.png)
 
 ## 5.4 free 链表、flush 链表、LRU 链表，修改数据的动态联系
 
 
-![11_free链表、flush链表、lru链表，修改数据的动态联系.png](/media/11_free链表、flush链表、lru链表，修改数据的动态联系.png)
+![11_free链表、flush链表、lru链表，修改数据的动态联系.png](media/11_free链表、flush链表、lru链表，修改数据的动态联系.png)
 
 # 6 redo log
 
@@ -211,7 +211,7 @@ redo log 是 InnoDB 独有的，本质上只是记录了一下事务对数据库
 redo log 里本质上记录的就是在对某个表空间的某个数据页的某个偏移量的地方修改了几个字节的值，具体修改的值是什么，他里面需要记录的就是**表空间号+数据页号+偏移量+具体的值**。redo 日志有很多种，以下是常见的一种。
 
 
-![25_redo log通用结构.png](/media/25_redo log通用结构.png)
+![25_redo log通用结构.png](media/25_redo log通用结构.png)
 
 ## 6.3 redo log block
 
@@ -228,22 +228,22 @@ redo log block 分为以下 3 个部分：
 3.  **traller**
     存放了一些管理信息。
 
-![image.png](/media/redolog-block.jpg)
+![image.png](media/redolog-block.jpg)
 
 其中 header 存放的内容如下：
 
-![image.png](/media/redolog-block-head.jpg)
+![image.png](media/redolog-block-head.jpg)
 
 整个 redo log 写入的流程，总结如下：
 
-![24_redo log block.png](/media/24_redo log block.png)
+![24_redo log block.png](media/24_redo log block.png)
 
 
 ## 6.4 redo log buffer
 
 首先让我们回顾一下下面这张图
 
-![03_InnoDB存储引擎的架构设计.png](/media/03_InnoDB存储引擎的架构设计.png)
+![03_InnoDB存储引擎的架构设计.png](media/03_InnoDB存储引擎的架构设计.png)
 
 
 为了增加数据更新的效率，MySQL 引入了 BufferPool 的概念；同理，为了增加 redo log 的效率，MySQL 同样引入了 redo log buffer 的概念，它其实就是 redo log 的缓冲区，它包含了若干个连续的 redo log block。最后，我们要知道 redo log 都是先进入 redo log buffer 中的一个 block，然后事务提交的时候才会刷入磁盘文件里去。那么这里会有两种情况
@@ -267,7 +267,7 @@ undo log 记录的东西也很简单，比如插入一条记录时，至少要�
 ## 7.2 图解
 
 
-![image.png](/media/undolog内存结构.jpg)
+![image.png](media/undolog内存结构.jpg)
 
 # 8 bin log
 
@@ -298,11 +298,11 @@ bin log 叫做归档日志，它主要关注“对哪个表的哪个数据做了
 1、MySQL 事务执行流程
 
 
-![28_MySQL事务执行流程.png](/media/28_MySQL事务执行流程.png)
+![28_MySQL事务执行流程.png](media/28_MySQL事务执行流程.png)
 
 2、MySQL 事务恢复流程
 
-![30_MySQL事务恢复流程.png](/media/30_MySQL事务恢复流程.png)
+![30_MySQL事务恢复流程.png](media/30_MySQL事务恢复流程.png)
 
 ## 9.1 脏写与脏读
 
@@ -394,16 +394,16 @@ REPEATABLE READ 这个是 MySQL 默认的隔离级别，这里我们需要注意
 
 ### 9.5.2 图解
 
-![在这里插入图片描述](/media/undolog版本链①.jpg)
+![在这里插入图片描述](media/undolog版本链①.jpg)
 
  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
-![image.png](/media/undolog版本链②.jpg)
+![image.png](media/undolog版本链②.jpg)
 
 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
 
-![image.png](/media/undolog版本链③.jpg)
+![image.png](media/undolog版本链③.jpg)
 
 ## 9.6 ReadView 机制
 
@@ -461,7 +461,7 @@ MVCC 机制，翻译成中文是多版本并发控制机制的意思。其实我
 #### 9.7.1.3 图解
 
 
-![image.png](/media/undolog版本链④.jpg)
+![image.png](media/undolog版本链④.jpg)
 
 ### 9.7.2 REPEATABLE READ
 
@@ -485,10 +485,10 @@ MVCC 机制，翻译成中文是多版本并发控制机制的意思。其实我
 
 步骤1-4
 
-![image.png](/media/undolog版本链⑤.jpg)
+![image.png](media/undolog版本链⑤.jpg)
 步骤5-9
 
-![image.png](/media/undolog版本链④.jpg)
+![image.png](media/undolog版本链④.jpg)
 
 #### 9.7.2.4 幻读
 
@@ -515,11 +515,11 @@ MySQL 锁机制作是MySQL中重要的一环，但是针对小七这种CRUD开�
 在讲索引之前，让我们看看一个单独的数据页是什么样子的
 
 
-![image.png](/media/15_数据页的各个部分.png)
+![image.png](media/15_数据页的各个部分.png)
 
 去除掉一些我们不太需要那么关注的部分后，简化如下：
 
-![image.png](/media/数据页内存结构.jpg)
+![image.png](media/数据页内存结构.jpg)
 
 也就是说平时我们在一个表里插入的一行一行的数据会存储在数据页里，然后数据页里的每一行数据都会按照主键大小进行排序存储，同时每一行数据都有指针指向下一行数据的位置，组成单向链表。
 
@@ -528,21 +528,21 @@ MySQL 锁机制作是MySQL中重要的一环，但是针对小七这种CRUD开�
 随着业务的发生，我们的数据页一般会越来越大，当大到一定程度的时候，就需要再搞一个数据页了，如下图所示
 
 
-![image.png](/media/数据页内存结构②.jpg)
+![image.png](media/数据页内存结构②.jpg)
 
 但是这一步骤并不是说简简单单多加一个数据页就 OK，还需要保证新加的数据页中的每一行数据的主键值都要比前面的大才行，所以数据行有可能会在数据页中挪动。具体如下图所示：
 
-![image.png](/media/页分裂①.jpg)
+![image.png](media/页分裂①.jpg)
 
 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
 
-![image.png](/media/页分裂②.jpg)
+![image.png](media/页分裂②.jpg)
 
 ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
 
-![image.png](/media/页分裂③.jpg)
+![image.png](media/页分裂③.jpg)
 
 ## 11.2 索引页存储结构
 
@@ -552,16 +552,16 @@ MySQL 锁机制作是MySQL中重要的一环，但是针对小七这种CRUD开�
 
 我们先思考一个问题，如果我们只有一般的数据页，咱们怎么找到自己想要的数据呢？是不是要将数据页全部遍历，再在每一个页中，通过二分查找查询数据。这么做，实在是太慢了！所以 MySQL 抽象出了一个索引页的概念，它和一般的数据页差不多，只不过存放的是最小主键值和页号。然后后续你查询主键值，就可以在目录里二分查找直接定位到那条数据所属的数据页，接着到数据页里二分查找定位那条数据就可以了，如下图所示。
 
-![image.png](/media/索引页存储结构①.jpg)
+![image.png](media/索引页存储结构①.jpg)
 
 但是随着数据页越来越多，索引页也变得越来越多，这个时候怎么办呢？这个时候 MySQL 会抽象出一个更高层级的索引页，它里面记录的是最小主键值和索引页号。
 
-![image.png](/media/索引页存储结构②.jpg)
+![image.png](media/索引页存储结构②.jpg)
 
 那么现在问题再次来了，假如你最顶层的那个索引页里存放的下层索引页的页号也太多了，怎么办呢？此时可以再次分裂，再加一层索引，最后不断的向上加，索引页看起来就像下面这个样子了，也就是一颗 B+树。
 
 
-![image.png](/media/索引页存储结构③.jpg)
+![image.png](media/索引页存储结构③.jpg)
 
 ### 11.2.1 例子
 
@@ -590,7 +590,7 @@ MySQL 锁机制作是MySQL中重要的一环，但是针对小七这种CRUD开�
 ### 11.4.2 图解
 
 
-![image.png](/media/二级索引.jpg)
+![image.png](media/二级索引.jpg)
 
 ### 11.4.3 回表
 
