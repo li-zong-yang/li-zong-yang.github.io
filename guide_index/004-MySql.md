@@ -1,3 +1,7 @@
+![线程池流程](media/公众号.jpg)
+
+
+
 # 2 MySQL 架构设计
 
 ## 2.1 程序是如何跟 MySQL 打交道的
@@ -404,7 +408,6 @@ REPEATABLE READ 这个是 MySQL 默认的隔离级别，这里我们需要注意
 
 
 ![image.png](media/undolog版本链③.jpg)
-
 ## 9.6 ReadView 机制
 
 ### 9.6.1 概念
