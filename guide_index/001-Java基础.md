@@ -4,8 +4,7 @@
 
 > 第七人格
 
-> ## String为什么是不可变的？
->
+## String为什么是不可变的？
 
 String 被声明为 final，因此它不可被继承。
 
@@ -22,7 +21,7 @@ String 被声明为 final，因此它不可被继承。
 
 
 
-> ## 面向对象和面向过程的区别
+## 面向对象和面向过程的区别
 
 **面向过程**：是分析解决问题的步骤，然后用函数把这些步骤一步一步地实现，然后在使用的时候一一调用则可。性能较高，所以单片机、嵌入式开发等一般采用面向过程开发
 
@@ -30,7 +29,7 @@ String 被声明为 final，因此它不可被继承。
 
 
 
-> ## 重载和重写的区别
+## 重载和重写的区别
 
 **重写(Override)**
 
@@ -60,7 +59,7 @@ String 被声明为 final，因此它不可被继承。
 
 
 
-> ## equals与==的区别
+## equals与==的区别
 
 **==** **：**
 
@@ -86,7 +85,45 @@ equals用来比较的是两个对象的内容是否相等，由于所有的类�
 
 
 
-> ## 有没有可能两个不相等的对象有相同的hashcode
+
+
+##  为什么不能用BigDecimal的equals方法做等值比较?
+
+在使用`BigDecimal`类进行等值比较时，通常不推荐直接使用`equals`方法，这主要是因为`BigDecimal`的`equals`方法会比较两个`BigDecimal`对象的值以及它们的标度（scale）。标度是指小数点后的位数，即精度。这意味着，即使两个`BigDecimal`对象在数值上相等，但它们的标度不同，`equals`方法也会返回`false`。
+
+例如：
+
+```java
+BigDecimal bd1 = new BigDecimal("1.00");
+BigDecimal bd2 = new BigDecimal("1");
+
+System.out.println(bd1.equals(bd2)); // 输出 false
+```
+
+在这个例子中，`bd1`和`bd2`在数值上是相等的，但它们的标度不同（`bd1`的标度是2，而`bd2`的标度是0）。因此，`equals`方法返回`false`。
+
+为了进行数值上的等值比较，而不考虑标度，你应该使用`compareTo`方法，或者更简洁地，使用`BigDecimal`提供的`stripTrailingZeros`方法（如果标度差异是问题所在）来规范化数值，然后再使用`equals`方法，或者直接使用`compareTo`方法与0进行比较：
+
+```java
+BigDecimal bd1 = new BigDecimal("1.00");
+BigDecimal bd2 = new BigDecimal("1");
+
+// 使用 compareTo 进行等值比较
+System.out.println(bd1.compareTo(bd2) == 0); // 输出 true
+
+// 或者先规范化数值
+System.out.println(bd1.stripTrailingZeros().equals(bd2.stripTrailingZeros())); // 输出 true
+```
+
+`compareTo`方法会返回-1、0或1，分别表示第一个操作数小于、等于或大于第二个操作数。因此，当你想要检查两个`BigDecimal`对象是否数值相等时，可以使用`compareTo`方法与0进行比较。
+
+总的来说，由于`BigDecimal`的`equals`方法同时考虑了数值和标度，所以在进行数值等值比较时，使用`compareTo`方法是一个更安全、更可靠的选择。
+
+
+
+
+
+## 有没有可能两个不相等的对象有相同的hashcode
 
 有可能.在产生hash冲突时,两个不相等的对象就会有相同的 hashcode 值.当hash冲突产生时,一般有以下几种方式来处理:
 
@@ -95,3 +132,17 @@ equals用来比较的是两个对象的内容是否相等，由于所有的类�
 2、开放定址法:一旦发生了冲突,就去寻找下一个空的散列地址,只要散列表足够大,空的散列地址总能找到,并将记录存入List<Integer> iniData = new ArrayList<>()
 
 3、再哈希:又叫双哈希法,有多个不同的Hash函数.当发生冲突时,使用第二个,第三个….等哈希函数计算地址,直到无冲突
+
+
+
+## Java中 String有长度限制吗？
+
+先回答结果：有。
+
+String内部是使用一个char数组来维护字符序列的，而数组的长度在Java中是用整型（int）来表示的。整型（Java中int为32位）的取值范围是-2^31到2^31-1，因此，从理论上讲，String的最大长度可以是Integer.MAX_VALUE，即2^31-1个字符。
+
+并且我以前写单元测试的时候，遇到过这么个情况，当时是要使用一个base64文件，我为了偷懒，直接new的一个String，将base64的字符串直接放在了常量池中，结果运行就报错了
+
+> java: 常量字符串过长
+
+但是以读取文件的方式，放在String中就不会发生这个情况了。这也说明运行期的限制和常量池的限制是不一样的。具体来说，由于常量池中的字符串以CONSTANT_Utf8_info结构表示，其长度字段是一个无符号的16位整数（u2），因此理论上字符串常量的最大长度是2^16-1（即65535），要小的多。
