@@ -146,3 +146,92 @@ String内部是使用一个char数组来维护字符序列的，而数组的长�
 > java: 常量字符串过长
 
 但是以读取文件的方式，放在String中就不会发生这个情况了。这也说明运行期的限制和常量池的限制是不一样的。具体来说，由于常量池中的字符串以CONSTANT_Utf8_info结构表示，其长度字段是一个无符号的16位整数（u2），因此理论上字符串常量的最大长度是2^16-1（即65535），要小的多。
+
+
+
+## JAVA中的值传递机制
+
+1. **基本数据类型**：当基本数据类型的变量作为参数传递给方法时，Java会创建一个参数的副本，并将实际参数的值复制到这个副本中。因此，在方法内部对参数的任何修改都不会影响到原始变量。
+2. **引用数据类型**：对于引用类型的变量，Java传递的是对象引用的副本，而不是对象本身。这意味着方法内部可以通过这个副本（即引用）访问和修改对象的状态（如对象的属性），但这些修改是通过引用指向的对象进行的，而不是修改了引用本身。因此，如果方法内部改变了对象的属性，这些改变会反映到原始对象上。但是，如果方法内部让引用指向了一个新的对象，这个改变不会影响到原始引用。
+
+示例1：基本数据类型的值传递
+
+```java
+public class PassByValueExample {
+    public static void main(String[] args) {
+        int num1 = 10;
+        int num2 = 20;
+        swap(num1, num2); // 尝试交换num1和num2的值
+        System.out.println("num1 = " + num1); // 输出: num1 = 10
+        System.out.println("num2 = " + num2); // 输出: num2 = 20
+    }
+
+    public static void swap(int a, int b) {
+        int temp = a;
+        a = b;
+        b = temp;
+        System.out.println("a = " + a); // 方法内部交换了a和b的值
+        System.out.println("b = " + b); // 但这不会影响到main方法中的num1和num2
+    }
+}
+```
+
+在这个示例中，`swap`方法试图交换两个整数参数的值。然而，由于Java采用值传递机制，`swap`方法接收的是`num1`和`num2`的副本，而不是它们本身。因此，在`swap`方法内部对参数的任何修改都不会影响到原始变量`num1`和`num2`。
+
+示例2：引用数据类型的值传递（传递引用值）
+
+```java
+public class ArrayExample {
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5};
+        modifyArray(arr); // 尝试修改数组的第一个元素
+        System.out.println(arr[0]); // 输出: 0，因为数组的第一个元素被修改了
+    }
+
+    public static void modifyArray(int[] array) {
+        array[0] = 0; // 修改数组的第一个元素
+    }
+}
+```
+
+在这个示例中，`modifyArray`方法接收一个整型数组的引用作为参数。虽然传递的是引用值（即数组在内存中的地址），但Java仍然遵循值传递的原则。这意味着`modifyArray`方法接收的是数组引用的副本，而不是数组本身。然而，由于引用副本和原始引用都指向同一个数组对象，因此通过引用副本对数组对象所做的修改会反映到原始数组上。
+
+示例3：对象作为参数的值传递
+
+```java
+public class Student {
+    private String name;
+
+    public Student(String name) {
+        this.name = name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+public class ObjectExample {
+    public static void main(String[] args) {
+        Student student = new Student("张三");
+        changeName(student); // 尝试修改学生的名字
+        System.out.println(student.getName()); // 输出: 李四，因为学生的名字被修改了
+    }
+
+    public static void changeName(Student s) {
+        s.setName("李四"); // 修改对象的属性
+    }
+}
+```
+
+在这个示例中，`changeName`方法接收一个`Student`对象的引用作为参数。同样地，由于Java采用值传递机制，`changeName`方法接收的是对象引用的副本。但是，由于引用副本和原始引用都指向同一个`Student`对象，因此通过引用副本对对象属性所做的修改会反映到原始对象上。
+
+总结
+
+- 在Java中，无论是基本数据类型还是引用数据类型，参数传递都是通过值传递进行的。
+- 对于基本数据类型，传递的是值的副本。
+- 对于引用数据类型，传递的是引用（即内存地址）的副本，但操作的是同一个对象。
