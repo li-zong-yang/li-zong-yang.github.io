@@ -1,4 +1,6 @@
-> # SpringBoot的自动装配原理
+# SpringBoot
+
+## SpringBoot的自动装配原理
 
 自动装配，简单来说就是自动把第三方组件的Bean装载到Spring lOC器里面，不需要开发人员再去写Bean的装配配置。
 

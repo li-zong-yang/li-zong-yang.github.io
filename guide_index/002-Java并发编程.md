@@ -2,7 +2,7 @@
 
 ![线程池流程](media/公众号.jpg)
 
-> ## 谈谈你对线程池的理解
+## 谈谈你对线程池的理解
 
 线程池可以理解为一些线程的集合，创建线程池有几个参数：
 
@@ -38,7 +38,7 @@
 
 ![线程池流程](media/线程池流程.jpg)
 
-> ## 什么是daemon线程？
+## 什么是daemon线程？
 
 daemon线程，中文翻译为守护线程。
 
@@ -48,7 +48,7 @@ daemon线程，中文翻译为守护线程。
 
 
 
-> ## 说一说CPU缓存模型
+## 说一说CPU缓存模型
 
 摩尔定律是英特尔创始人之一戈登·摩尔的经验之谈，其核心内容为：集成电路上可以容纳的晶体管数目在大约每经过18个月到24个月便会增加一倍。但是现代的计算机技术，在内存的读写速度方面却没什么突破。为了避免cpu频繁读写主内存，大佬们想了一个方法，给cpu加了几层缓存，也就是说cpu可以直接操作自己的缓存，而不需要和主内存频繁的通信，这就是CPU的缓存模型。
 
@@ -62,7 +62,7 @@ daemon线程，中文翻译为守护线程。
 
 
 
-> ## JAVA内存模型(JMM)
+## JAVA内存模型(JMM)
 
 JMM是基于CPU缓存模型的
 
@@ -72,7 +72,7 @@ JMM是基于CPU缓存模型的
 
 
 
-> ## 并发三大特性
+## 并发三大特性
 
 原子性、可见性、有序性
 
@@ -80,7 +80,7 @@ JMM是基于CPU缓存模型的
 
 
 
-> ## volatile是如何保证可见性的?
+## volatile是如何保证可见性的?
 
 底层原理主要是靠lock前缀指令以及MESI协议。
 
@@ -90,7 +90,7 @@ JMM是基于CPU缓存模型的
 
 
 
-> ## volatile为何不保证原子性?
+## volatile为何不保证原子性?
 
 
 
@@ -98,7 +98,7 @@ JMM是基于CPU缓存模型的
 
 
 
-> ## volatile如何保证有序性的？
+## volatile如何保证有序性的？
 
 happens-before原则
 
@@ -108,7 +108,7 @@ happens-before原则
 
 
 
-> ## volatile使用的场景
+## volatile使用的场景
 
 1、单例模式 - 双重检索
 
@@ -118,7 +118,7 @@ happens-before原则
 
 
 
-> ## 多线程安全问题产生的根本原因
+## 多线程安全问题产生的根本原因
 
 多线程并发写的问题
 
@@ -128,7 +128,7 @@ java内存模型
 
 
 
-> ## synchronized的底层原理
+## synchronized的底层原理
 
 同一时间只有一个线程能够读写主内存。 synchronized可以对两种对象加锁，对象实例，Class对象。 你如果用到了synchronized关键字，在底层编译后的jvm指令中，会有monitorenter和monitorexit两个指令 每个对象都有一个关联的monitor，比如一个对象实例就有一个monitor，一个类的Class对象也有一个monitor，如果要对这个对象加锁，那么必须获取这个对象关联的monitor的lock锁 他里面的原理和思路大概是这样的，monitor里面有一个计数器，从0开始的。如果一个线程要获取monitor的锁，就看看他的计数器是不是0，如果是0的话，那么说明没人获取锁，他就可以获取锁了，然后对计数器加1 这个monitor的锁是支持重入加锁的 
 
@@ -145,7 +145,7 @@ synchronized(myObject) {
 
 
 
-> ## synchronized锁升级
+## synchronized锁升级
 
 无锁->偏向锁->轻量级锁->重量级锁 
 
@@ -163,7 +163,7 @@ synchronized(myObject) {
 
 
 
-> ## synchronized的3次自旋
+## synchronized的3次自旋
 
 
 
@@ -171,7 +171,7 @@ synchronized(myObject) {
 
 
 
-> ## synchronized锁优化
+## synchronized锁优化
 
 锁自旋一般是用while，但是这个用得是c代码  
 
@@ -185,7 +185,7 @@ synchronized(myObject) {
 
 
 
-> ## wait和notify/notifyAll
+## wait和notify/notifyAll
 
 
 
@@ -195,7 +195,7 @@ synchronized(myObject) {
 
 
 
-> ## Atomic原子类底层核心原理
+## Atomic原子类底层核心原理
 
 CAS无锁话，乐观锁，Unsafe类 
 
@@ -207,7 +207,7 @@ valueOffset（value字段在AtomicInteger类中的位置）
 
 
 
-> ## CAS无锁化原理和思路
+## CAS无锁化原理和思路
 
 CAS（Compare And Swap）是一种无锁化的操作技术，常用于并发编程中。其基本思路和原理如下：
 
@@ -227,7 +227,7 @@ ABA问题: CAS操作存在一个被称为ABA问题的潜在风险，即一个值
 
 
 
-> ## 底层CPU指令是如何实现CAS语义的
+## 底层CPU指令是如何实现CAS语义的
 
 底层CPU指令实现CAS（Compare-And-Swap）语义主要依赖于处理器提供的特殊原子操作指令。这些指令可以在多线程环境下，无需锁的情况下保证对内存的原子性访问和更新。
 
@@ -243,7 +243,7 @@ ABA问题: CAS操作存在一个被称为ABA问题的潜在风险，即一个值
 
 
 
-> ## Atomic原子类CAS语义存在的3大问题
+## Atomic原子类CAS语义存在的3大问题
 
 1、ABA问题 
 
@@ -257,12 +257,12 @@ ABA问题: CAS操作存在一个被称为ABA问题的潜在风险，即一个值
 
 
 
-> ## ReentractLoc和ReadWriteReentractLock
+## ReentractLoc和ReadWriteReentractLock
 
 底层都是基于AQS实现的
 
 
 
-> ## 谈一谈AQS抽象队列同步器
+## 谈一谈AQS抽象队列同步器
 
 其实就是2个东西，一个是队列里面放的status，还有一个就是记录的当前加锁的线程。
