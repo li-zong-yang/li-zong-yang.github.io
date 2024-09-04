@@ -2,7 +2,7 @@
 
 
 
-## Spring容器初始化流程
+## ⚠️Spring容器初始化流程
 
 参考文章：
 
@@ -12,38 +12,38 @@
 
 
 
-## Autowired和Resource关键字的区别
+## ✅Autowired和Resource关键字的区别
 
 
 都是做bean注入时用的。不同的是Autowired是Spring的注解，Resource是javax的注解。Autowired是先按类型注入去查找的，找到一个直接赋值；找到多个，则再按名字去找；找不到则报错。我们可以搭配Qualifier，解决找到多个实例的问题。
 
 Resource默认是按名字注入去查找的，他有2个参数，分别是name和type，他查到多个是会报错的。
 
-## SpringBean的初始化过程
+## ⚠️SpringBean的初始化过程
 
 
 
 
 
-## 依赖注入的方式有几种
+## ⚠️依赖注入的方式有几种
 
 参考官网的说法，是有2种，分别是1、构造方法注入2、setter方法注入。在平常的开发中，有一种说法叫属性注入，也就是在属性上加入Autowired注解。
 
 
 
-## 谈谈你对Spring的AOP理解
+## ⚠️谈谈你对Spring的AOP理解
 
 aop，面向切面编程。SpringAOP是基于动态代理实现的，有两种实现方式，分别是jdk动态代理和cglib，jdk动态代理只能代理类，而cglib可以代理接口。
 
 
 
-## 说说你对Spring的IOC是怎么理解的
+## ✅说说你对Spring的IOC是怎么理解的
 
 IOC控制反转。举个例子，你去洗脚，平常是你自己点小姐姐的，可是有一天，你不想自己点了，你把自己的要求告诉了老板，让老板帮你安排，相当于你把点小姐姐的权利交给了老板，这个就叫做控制反转了。而DI是依赖注入，他是控制反转的一种实现方式。
 
 
 
-## Spring 是怎么解决循环依赖的
+## ✅Spring 是怎么解决循环依赖的
 
 首先我们明确什么是循环依赖。其次构造器依赖Spring是没有解决的，Spring只解决了setter的循环依赖问题。
 
@@ -81,7 +81,7 @@ IOC控制反转。举个例子，你去洗脚，平常是你自己点小姐姐�
 
 如果 Spring 选择二级缓存来解决循环依赖的话，那么就意味着所有 Bean 都需要在实例化完成之后就立马为其创建代理，而 Spring 的设计原则是在 Bean 初始化完成之后才为其创建代理。所以，Spring 选择了三级缓存。但是因为循环依赖的出现，导致了 Spring 不得不提前去创建代理，因为如果不提前创建代理对象，那么注入的就是原始对象，这样就会产生错误。
 
-## Bean的生命周期
+## ✅Bean的生命周期
 
 1、解析类得到BeanDefinition
 
@@ -107,13 +107,13 @@ IOC控制反转。举个例子，你去洗脚，平常是你自己点小姐姐�
 
 
 
-## BeanFactroy和FactroyBean的区别 
+## ✅BeanFactroy和FactroyBean的区别 
 
 BeanFactroy是所有Spring Bean容器的顶级接口，提供了getBean这样的方法从容器中获取指定的Bean实例。BeanFactroy在生产Bean的同时，还提供了解决Bean之间的依赖注入的能力，也就是DI。 FactroyBean是一个工厂Bean，它是一个接口，主要功能是动态生成某一个类型的Bean实例，他有一个getObject方法  
 
 
 
-## Spring中有哪些方式可以把Bean注入到IOC容器中
+## ✅Spring中有哪些方式可以把Bean注入到IOC容器中
 
 1、使用xml的方式申明Bean定义
 
@@ -131,13 +131,13 @@ BeanFactroy是所有Spring Bean容器的顶级接口，提供了getBean这样的
 
 
 
-## 谈谈你对Spring事务的理解
+## ⚠️谈谈你对Spring事务的理解
 
 
 
 
 
-## Spring框架中都用到了哪些设计模式？
+## ✅Spring框架中都用到了哪些设计模式？
 
 简单工厂：由一个工厂类根据传入的参数，动态决定应该创建哪一个产品类。
 
